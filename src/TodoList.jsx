@@ -21,6 +21,15 @@
         setTasks((prevTask)=>tasks.filter((prevTask) => prevTask.id != id));
     
     }
+
+   let upperCAse = () => {
+        setTasks((prevTasks) =>
+            prevTasks.map((todo) => ({
+            ...todo,
+            task: todo.task.toUpperCase(),
+            }))
+        );
+    };
     return(
         <div>
             <input placeholder="Add a task" value={newTask} onChange={handleInputChange} />
@@ -39,6 +48,8 @@
                     ))
                 }
             </ul>
+            <br /><br /><br />
+            <button onClick={upperCAse}>UpperCase All</button>
         </div>
     );
 }
