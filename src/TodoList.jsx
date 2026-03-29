@@ -11,25 +11,46 @@
         });
         setNewTask("");
     }
-
+ 
     let handleInputChange = (event) =>{
         console.log(event.target.value);
         setNewTask(event.target.value); 
     }
 
-    let deleteTask = (id)=>{
-        setTasks((prevTask)=>tasks.filter((prevTask) => prevTask.id != id));
-    
-    }
+    let deleteTask = (id)=>{  
+        setTasks((todos)=>todos.filter((todo) => todo.id !== id));
+    } 
 
-   let upperCAse = () => {
-        setTasks((prevTasks) =>
-            prevTasks.map((todo) => ({
-            ...todo,
-            task: todo.task.toUpperCase(),
-            }))
+    let upperCaseOne = (id) => {
+        setTasks((todos) =>
+            todos.map((todo) => {
+                if (todo.id === id) { 
+                    return {
+                        ...todo,
+                        task: todo.task.toUpperCase(),
+                    };
+                } else {
+                    return todo;
+                }
+            })
         );
     };
+
+    let upperCaseAll = () => {
+        setTasks((todos) =>
+            todos.map((todo) => {
+                return {
+                    ...todo,
+                     task: todo.task.toUpperCase(),
+                };
+            })
+        );
+    };
+
+   
+
+    
+
     return(
         <div>
             <input placeholder="Add a task" value={newTask} onChange={handleInputChange} />
@@ -44,12 +65,15 @@
                         <span>{todo.task}</span>
                         &nbsp;&nbsp;&nbsp;
                         <button onClick={() => deleteTask(todo.id)}>Delete</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button onClick={() => upperCaseOne(todo.id)}>UpperCase</button>
                     </li>
                     ))
                 }
             </ul>
             <br /><br /><br />
-            <button onClick={upperCAse}>UpperCase All</button>
+            <button onClick={upperCaseAll}>UpperCase All</button>
+            
         </div>
     );
 }
