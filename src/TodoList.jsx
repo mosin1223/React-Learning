@@ -6,13 +6,20 @@
 
     let  addnewtask = () => {
         console.log("Adding new task: ", newTask , " to the list" , tasks);
-        setTasks([...tasks , {task : newTask , id : uuidv4()}]);
+        setTasks((prevTasks) => {
+            return [...prevTasks , {task : newTask , id : uuidv4()}]
+        });
         setNewTask("");
     }
 
     let handleInputChange = (event) =>{
         console.log(event.target.value);
-        setNewTask(event.target.value);
+        setNewTask(event.target.value); 
+    }
+
+    let deleteTask = (id)=>{
+        setTasks((prevTask)=>tasks.filter((prevTask) => prevTask.id != id));
+    
     }
     return(
         <div>
@@ -24,7 +31,11 @@
             <ul>
                 {
                  tasks.map((todo) => (
-                    <li key={todo.id}>{todo.task}</li>
+                    <li key={todo.id}>
+                        <span>{todo.task}</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <button onClick={() => deleteTask(todo.id)}>Delete</button>
+                    </li>
                     ))
                 }
             </ul>
